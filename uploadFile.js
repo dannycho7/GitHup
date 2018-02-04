@@ -3,6 +3,7 @@ const { exec } = require("child_process");
 const hasha = require("hasha");
 const { saveFileDB } = require("./db");
 const { addFileElement } = require("./dlFile");
+const { addStatus, clearStatusBoard } = require("./status");
 
 const copyFile = (originalPath, newPath) => {
 	return new Promise((resolve, reject) => {
@@ -20,8 +21,10 @@ file_source.onchange = function handleUpload() {
 
 	} else {
 		let { name: file_name, path } = file_source[0];
-		console.log("Received a submission", file_source[0]);
 		let new_hashed_filename = hasha(file_name + Date.now().toString());
+
+		clearStatusBoard();
+		addStatus(`Uploading file '${file_name}'...`)
 
 		copyFile(path, `./files/${new_hashed_filename}`)
 		.then(() => {
@@ -29,8 +32,8 @@ file_source.onchange = function handleUpload() {
 			let git_cmds = `cd ./files && git add ./${new_hashed_filename} && git commit -m "${new_hashed_filename}" && git push origin HEAD`;
 			exec(git_cmds, (err, stdout, stderr) => {
 				if(err) throw err;
-				console.log("std out:", stdout);
-				console.log("std err:", stderr);
+				addStatus(stdout);
+				addStatus(stderr);
 
 				saveFileDB(file_name, new_hashed_filename)
 				.then(() => {
