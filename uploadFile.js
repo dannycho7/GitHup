@@ -2,6 +2,7 @@ const fs = require("fs");
 const { exec } = require("child_process");
 const hasha = require("hasha");
 const { saveFileDB } = require("./db");
+const { addFileElement } = require("./dlFile");
 
 const copyFile = (originalPath, newPath) => {
 	return new Promise((resolve, reject) => {
@@ -34,6 +35,7 @@ file_upload.onsubmit = function handleUpload(evt) {
 
 				saveFileDB(file_name, new_hashed_filename)
 				.then(() => {
+					addFileElement(file_name, new_hashed_filename);
 					console.log("Finished");
 				});
 			});

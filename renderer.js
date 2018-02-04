@@ -3,4 +3,5 @@
 // All of the Node.js APIs are available in this process.
 require("dotenv").config();
 require("./uploadFile");
-require("./dlFile");
+const { initFiles } = require("./dlFile");
+initFiles();

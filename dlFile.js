@@ -19,22 +19,33 @@ const downloadFile = (filename, save_filepath) => {
 	});
 };
 
-let file_list = document.getElementById("file_list");
-findAllFiles()
-.then((files) => {
-	files.forEach(({ filename, hash }) => {
-		let file_element = document.createElement("div");
-		let file_label = document.createElement("span");
-		let file_link = document.createElement("button");
-		
-		file_label.appendChild(document.createTextNode(filename));
-		file_element.appendChild(file_label);
+const addFileElement = (filename, hash) => {
+	let file_list = document.getElementById("file_list");
+	let file_element = document.createElement("div");
+	let file_label = document.createElement("span");
+	let file_link = document.createElement("button");
+	
+	file_label.appendChild(document.createTextNode(filename));
+	file_element.appendChild(file_label);
 
-		file_link.appendChild(document.createTextNode("Download"));
-		file_link.onclick = () => dialog.showSaveDialog({ title: "hello" }, (targetPath) => downloadFile(hash, targetPath));
-
-		file_element.appendChild(file_link);
-
-		file_list.appendChild(file_element);
+	file_link.appendChild(document.createTextNode("Download"));
+	file_link.onclick = () => dialog.showSaveDialog({ title: "hello" }, (targetPath) => {
+		if(targetPath) {
+			downloadFile(hash, targetPath)
+		}
 	});
-});
+
+	file_element.appendChild(file_link);
+
+	file_list.appendChild(file_element);
+};
+
+const initFiles = () => {
+	findAllFiles()
+	.then((files) => {
+		files.forEach(({ filename, hash }) => addFileElement(filename, hash));
+	});
+}
+
+module.exports.addFileElement = addFileElement;
+module.exports.initFiles = initFiles;
