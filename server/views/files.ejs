@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>File List:</h1>
+	<div id="file-list">
+		<% locals.files.forEach((file) => { %>
+			<%- include("partials/file", { file }) %>
+		<% }) %>
+	</div>
+</body>
+</html>
