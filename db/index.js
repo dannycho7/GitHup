@@ -7,7 +7,7 @@ const File = mongoose.model("File", {
 	filename: String
 });
 
-const saveFileToDict = (filename, file_name_hash) => {
+const saveFileDB = (filename, file_name_hash) => {
 	return new Promise((resolve, reject) => {
 		let file = new File({ filename, hash: file_name_hash });
 		file.save()
@@ -18,7 +18,7 @@ const saveFileToDict = (filename, file_name_hash) => {
 	});
 };
 
-const findFileHash(filename) => {
+const findFileHash = (filename) => {
 	return new Promise((resolve, reject) => {
 		File.findOne({ filename },  (err, file) => {
 			if(err) return reject(err);
@@ -27,5 +27,14 @@ const findFileHash(filename) => {
 	});
 };
 
-module.exports.saveFileToDict = saveFileToDict;
+const findAllFiles = () => {
+	return new Promise((resolve, reject) => {
+		File.findAll({}, (err, files) => {
+			resolve(files);
+		});
+	});
+};
+
+module.exports.saveFileDB = saveFileDB;
 module.exports.findFileHash = findFileHash;
+module.exports.findAllFiles = findAllFiles;

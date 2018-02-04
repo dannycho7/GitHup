@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { exec } = require("child_process");
 const hasha = require("hasha");
-const { saveFileToDict } = require("./db");
+const { saveFileDB } = require("./db");
 
 const copyFile = (originalPath, newPath) => {
 	return new Promise((resolve, reject) => {
@@ -32,7 +32,7 @@ file_upload.onsubmit = function handleUpload(evt) {
 				console.log("std out:", stdout);
 				console.log("std err:", stderr);
 
-				saveFileToDict(file_name, new_hashed_filename)
+				saveFileDB(file_name, new_hashed_filename)
 				.then(() => {
 					console.log("Finished");
 				});
