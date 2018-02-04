@@ -4,12 +4,13 @@ const hasha = require("hasha");
 const { saveFileDB } = require("./db");
 const { addFileElement } = require("./dlFile");
 const { addStatus, clearStatusBoard } = require("./status");
-const { encrypt, zip } = require("./crypt");
+const { createEncryptStream, createZip } = require("./crypt");
 
 const copyFile = (originalPath, newPath) => {
 	return new Promise((resolve, reject) => {
 		let file_readStream = fs.createReadStream(originalPath);
-		file_readStream.pipe(zip).pipe(encrypt).pipe(fs.createWriteStream(newPath));
+		addStatus("Adding GZIP Compression and AES 256 Encryption...");
+		file_readStream.pipe(createZip()).pipe(createEncryptStream()).pipe(fs.createWriteStream(newPath));
 
 		file_readStream.on("end", resolve);
 	});

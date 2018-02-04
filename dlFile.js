@@ -3,6 +3,7 @@ const path = require("path");
 const { exec } = require("child_process");
 const { findAllFiles } = require("./db");
 const { dialog } = require("electron").remote;
+const { createDecryptStream, createUnzip } = require("./crypt");
 
 const downloadFile = (filename, save_filepath) => {
 	exec(`cd ./files && git fetch origin && git checkout origin/master ${filename}`, (err, stdout, stderr) => {
@@ -11,11 +12,10 @@ const downloadFile = (filename, save_filepath) => {
 		console.log(stdout);
 		console.log(stderr);
 
-		fs.rename(path.join(__dirname, "files", filename), save_filepath, (err) => {
-			if(err) throw err;
 
-			console.log("Finished saving file");
-		});
+		let decipheredFileWriteStream = fs.createWriteStream(save_filepath);
+		let fileDecipherStream = fs.createReadStream(path.join(__dirname, "files", filename));
+		fileDecipherStream.pipe(createDecryptStream()).pipe(createUnzip()).pipe(decipheredFileWriteStream);
 	});
 };
 
