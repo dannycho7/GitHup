@@ -4,21 +4,26 @@ const path = require("path");
 const fs = require("fs");
 const { exec } = require("child_process");
 const express = require("express");
+const splitFile = require("split-file");
 const app = express();
 const port = (process.env.PORT || 5000);
 const { createUnzip, createDecryptStream } = require("../lib/crypt");
-const { findAllFiles } = require("../db");
+const { findAllFiles, findFileHash } = require("../db");
 
-const writeFileToStream = (filename, stream) => {
+const writeFileToStream = (filename, partitions, stream) => {
 	return new Promise((resolve, reject) => {
-		exec(`cd ../files && git fetch origin && git checkout origin/master ${filename}`, (err, stdout, stderr) => {
+		exec(`cd ../files && git fetch origin && git checkout origin/master ${filename}.sf*`, (err, stdout, stderr) => {
 			if(err) throw err;
 
 			console.log(stdout);
 			console.log(stderr);
 
-			let fileDecipherStream = fs.createReadStream(path.join(__dirname, "../files", filename));
-			fileDecipherStream.pipe(createDecryptStream()).pipe(createUnzip()).pipe(stream);
+			splitFile.mergeFiles(partitions.map((partition) => path.join(__dirname, "..", partition)), `../files/${filename}`)
+			.then(() => {
+				console.log("Merged success");
+				let fileDecipherStream = fs.createReadStream(path.join(__dirname, "../files", filename));
+				fileDecipherStream.pipe(createDecryptStream()).pipe(createUnzip()).pipe(stream);
+			});
 		});
 	});
 };
@@ -37,7 +42,10 @@ app.get("/files", (req, res) => {
 
 app.get("/download", (req, res) => {
 	res.set('Content-disposition', `attachment; filename=${req.query.filename}`);
-	writeFileToStream(req.query.file_hash, res);
+	findFileHash(req.query.filename)
+	.then(({ partitions, hash }) => {
+		writeFileToStream(hash, partitions, res);
+	});
 });
 
 app.listen(port, () => console.log("Server listening in on port", port));

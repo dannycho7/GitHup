@@ -4,12 +4,13 @@ mongoose.connect(process.env["MONGO_URI"]);
 
 const File = mongoose.model("File", {
 	hash: String,
-	filename: String
+	filename: String,
+	partitions: Array
 });
 
-const saveFileDB = (filename, file_name_hash) => {
+const saveFileDB = (filename, file_name_hash, partitions) => {
 	return new Promise((resolve, reject) => {
-		let file = new File({ filename, hash: file_name_hash });
+		let file = new File({ filename, hash: file_name_hash, partitions });
 		file.save()
 		.then(() => {
 			console.log("Saved a file");

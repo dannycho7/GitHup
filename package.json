@@ -22,6 +22,7 @@
   "dependencies": {
     "dotenv": "^5.0.0",
     "hasha": "^3.0.0",
-    "mongoose": "^5.0.3"
+    "mongoose": "^5.0.3",
+    "split-file": "^2.1.0"
   }
 }
