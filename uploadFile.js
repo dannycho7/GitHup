@@ -1,6 +1,7 @@
 const fs = require("fs");
-const { exec, spawn } = require("child_process");
+const { exec } = require("child_process");
 const hasha = require("hasha");
+const { saveFileToDict } = require("./db");
 
 const copyFile = (originalPath, newPath) => {
 	return new Promise((resolve, reject) => {
@@ -8,12 +9,6 @@ const copyFile = (originalPath, newPath) => {
 		file_readStream.pipe(fs.createWriteStream(newPath));
 
 		file_readStream.on("end", resolve);
-	});
-}
-
-const saveFileToDict = (file_name, file_name_hash) => {
-	return new Promise((resolve, reject) => {
-		resolve();
 	});
 }
 
