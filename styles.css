@@ -1,9 +1,16 @@
-#file-upload {
-	width: 50%;
-	display: inline-block;
+body {
+	padding: 5%;
+	text-align: center;
 }
+
+#file-upload {
+	width: 45%;
+	display: inline-block;
+	vertical-align: top;
+}
+
 #file-list {
-	width: 50%;
+	width: 45%;
 	display: inline-block;
 }
 

@@ -14,8 +14,7 @@ const copyFile = (originalPath, newPath) => {
 }
 
 var file_upload = document.getElementById("file-upload");
-file_upload.onsubmit = function handleUpload(evt) {
-	evt.preventDefault();
+file_upload.onchange = function handleUpload() {
 	let file_source = document.getElementById("file-source").files;
 	if(file_source.length == 0) {
 
