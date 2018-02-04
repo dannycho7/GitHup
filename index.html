@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <title>Git Uploader</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
   </head>
   <body>
     <form id="file-upload">
       <input type="file" name="file" id="file-source" />
       <button type="submit">Upload</button>
     </form>
-    <div id="file_list"></div>
+    <div id="file-list"></div>
     <script>
       // You can also require other files to run in this process
       require('./renderer.js')

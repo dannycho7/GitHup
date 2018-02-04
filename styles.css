@@ -1,0 +1,20 @@
+#file-upload {
+	width: 50%;
+	display: inline-block;
+}
+#file-list {
+	width: 50%;
+	display: inline-block;
+}
+
+.file-element {
+	display: block;
+}
+
+.file-label {
+	margin: 5px;
+}
+
+.file-link {
+
+}

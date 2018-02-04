@@ -20,23 +20,25 @@ const downloadFile = (filename, save_filepath) => {
 };
 
 const addFileElement = (filename, hash) => {
-	let file_list = document.getElementById("file_list");
+	let file_list = document.getElementById("file-list");
 	let file_element = document.createElement("div");
 	let file_label = document.createElement("span");
 	let file_link = document.createElement("button");
 	
-	file_label.appendChild(document.createTextNode(filename));
-	file_element.appendChild(file_label);
-
-	file_link.appendChild(document.createTextNode("Download"));
+	file_element.className = "file-element";
+	file_label.className = "file-label";
+	file_link.className = "file-link";
+	
 	file_link.onclick = () => dialog.showSaveDialog({ title: "hello" }, (targetPath) => {
 		if(targetPath) {
 			downloadFile(hash, targetPath)
 		}
 	});
 
+	file_label.appendChild(document.createTextNode(filename));
+	file_element.appendChild(file_label);
+	file_link.appendChild(document.createTextNode("Download"));
 	file_element.appendChild(file_link);
-
 	file_list.appendChild(file_element);
 };
 
