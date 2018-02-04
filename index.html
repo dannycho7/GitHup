@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <title>Git Uploader</title>
     <link rel="stylesheet" type="text/css" href="./styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
   <body>
+    <div id="file-explorer">
+      <h1>File list:</h1>
+      <div id="file-list"></div>
+    </div>
     <form id="file-upload">
       <input type="file" name="file" id="file-source" />
     </form>
-    <div id="file-list"></div>
     <script>
       // You can also require other files to run in this process
       require('./renderer.js')

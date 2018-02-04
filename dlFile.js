@@ -37,7 +37,6 @@ const addFileElement = (filename, hash) => {
 
 	file_label.appendChild(document.createTextNode(filename));
 	file_element.appendChild(file_label);
-	file_link.appendChild(document.createTextNode("Download"));
 	file_element.appendChild(file_link);
 	file_list.appendChild(file_element);
 };
