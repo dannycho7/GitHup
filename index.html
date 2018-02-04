@@ -5,15 +5,21 @@
     <title>Git Uploader</title>
     <link rel="stylesheet" type="text/css" href="./styles.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
   </head>
   <body>
     <div id="file-explorer">
       <h1>File list:</h1>
       <div id="file-list"></div>
     </div>
-    <form id="file-upload">
-      <input type="file" name="file" id="file-source" />
-    </form>
+    <div class="wrapper">
+      <div class="file-upload">
+        <input type="file" id="file-source" />
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+      <div id="status"></div>
+    </div>
     <script>
       // You can also require other files to run in this process
       require('./renderer.js')
