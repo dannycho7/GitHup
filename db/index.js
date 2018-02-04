@@ -29,7 +29,7 @@ const findFileHash = (filename) => {
 
 const findAllFiles = () => {
 	return new Promise((resolve, reject) => {
-		File.findAll({}, (err, files) => {
+		File.find({}, (err, files) => {
 			resolve(files);
 		});
 	});
