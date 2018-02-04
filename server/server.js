@@ -23,11 +23,9 @@ const writeFileToStream = (filename, stream) => {
 	});
 };
 
-app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "static")));
 
-app.get("/", (req, res) => {
-	res.render("index");
-});
+app.set("view engine", "ejs");
 
 app.get("/files", (req, res) => {
 	findAllFiles()

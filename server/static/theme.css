@@ -1,0 +1,77 @@
+body {
+	background-color: #191919;
+	color: white;
+	font-family: 'Roboto', sans-serif;
+	text-align: center;
+}
+
+#slogan {
+	margin-top: 0;
+	margin-bottom: 50px;
+	font-style: italic;
+}
+
+#logo {
+	font-size: 10vw;
+	margin-bottom: 0;
+}
+
+.dl-link {
+	color: white;
+}
+
+.dl-link:hover {
+	opacity: 0.7;
+}
+
+#logo img {
+	height: 10vw;
+	width: auto;
+	vertical-align: middle;
+}
+
+.fancy-flipper {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	transform-style: preserve-3d;
+	transform: rotateX(-90deg);
+	transition: transform 0.3s ease;
+}
+
+.fancy-front, .fancy-back {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	backface-visibility: hidden;
+}
+
+svg {
+	display: block;
+}
+
+.fancy-button:hover .fancy-flipper {
+	transform: rotateX(0deg);
+}
+
+.fancy-button:active  .fancy-flipper {
+	transform: rotateX(0deg) scale(0.95);
+	transition: transform 0.05s ease;
+}
+
+.fancy-button .button-text {
+	letter-spacing: 0.01em;
+	font-family: Futura, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.fancy-button {
+     position: relative;
+     display: block;
+     cursor: pointer;
+     perspective: 1800px;
+     margin: 0 auto;
+}
