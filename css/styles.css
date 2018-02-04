@@ -34,7 +34,7 @@ h1 {
 }
 
 .file-link {
-	background-image: url("./download.png");
+	background-image: url("../img/download.png");
 	border-color: transparent;
 	background-color: transparent;
 	height: 20px;

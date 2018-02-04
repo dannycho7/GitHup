@@ -1,7 +1,5 @@
-// This file is required by the index.html file and will
-// be executed in the renderer process for that window.
-// All of the Node.js APIs are available in this process.
 require("dotenv").config();
-require("./uploadFile");
-const { initFiles } = require("./dlFile");
+require("./lib/uploadFile");
+const { initFiles } = require("./lib/dlFile");
+
 initFiles();
