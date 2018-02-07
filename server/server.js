@@ -12,15 +12,13 @@ const { findAllFiles, findFileHash } = require("../db");
 
 const writeFileToStream = (filename, partitions, stream) => {
 	return new Promise((resolve, reject) => {
-		exec(`cd ../files && git fetch origin && git checkout origin/master ${filename}.sf*`, (err, stdout, stderr) => {
+		exec(`cd ../files && git fetch origin && git checkout origin/master ${filename}.*`, (err, stdout, stderr) => {
 			if(err) throw err;
 
 			console.log(stdout);
 			console.log(stderr);
 
-			splitFileStream.mergeFiles(partitions.map((partition) => path.join(__dirname, "..", partition)), `../files/${filename}`)
-			.then(() => {
-				console.log("Merged success");
+			splitFileStream.mergeFiles(partitions.map((partition) => path.join(__dirname, "..", partition)), `../files/${filename}`, () => {
 				let fileDecipherStream = fs.createReadStream(path.join(__dirname, "../files", filename));
 				fileDecipherStream.pipe(createDecryptStream()).pipe(createUnzip()).pipe(stream);
 			});
