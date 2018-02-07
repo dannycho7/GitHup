@@ -4,7 +4,7 @@ const path = require("path");
 const fs = require("fs");
 const { exec } = require("child_process");
 const express = require("express");
-const splitFile = require("split-file");
+const splitFileStream = require("split-file-stream");
 const app = express();
 const port = (process.env.PORT || 5000);
 const { createUnzip, createDecryptStream } = require("../lib/crypt");
@@ -18,7 +18,7 @@ const writeFileToStream = (filename, partitions, stream) => {
 			console.log(stdout);
 			console.log(stderr);
 
-			splitFile.mergeFiles(partitions.map((partition) => path.join(__dirname, "..", partition)), `../files/${filename}`)
+			splitFileStream.mergeFiles(partitions.map((partition) => path.join(__dirname, "..", partition)), `../files/${filename}`)
 			.then(() => {
 				console.log("Merged success");
 				let fileDecipherStream = fs.createReadStream(path.join(__dirname, "../files", filename));
