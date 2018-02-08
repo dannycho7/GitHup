@@ -18,8 +18,8 @@ const writeFileToStream = (filename, partitions, stream) => {
 			console.log(stdout);
 			console.log(stderr);
 
-			splitFileStream.mergeFiles(partitions.map((partition) => path.join(__dirname, "..", partition)), `../files/${filename}`, () => {
-				let fileDecipherStream = fs.createReadStream(path.join(__dirname, "../files", filename));
+			let partitionNames = partitions.map((partition) => path.join(__dirname, "..", partition));
+			splitFileStream.mergeFilesToStream(partitionNames, (fileDecipherStream) => {
 				fileDecipherStream.pipe(createDecryptStream()).pipe(createUnzip()).pipe(stream);
 			});
 		});
